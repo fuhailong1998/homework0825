@@ -71,8 +71,9 @@ public class MainActivity extends AppCompatActivity {
         //调用 TabHost.setup()
         tabhost.setup();
         //创建Tab标签
-        tabhost.addTab(tabhost.newTabSpec("one").setIndicator("红色").setContent(Fragment1.class);
-        tabhost.addTab(tabhost.newTabSpec("two").setIndicator("黄色").setContent(R.id.widget_layout_yellow));
+        tabhost.addTab(tabhost.newTabSpec("one").setIndicator("1").setContent(R.id.widget_layout_red));
+        tabhost.addTab(tabhost.newTabSpec("two").setIndicator("2").setContent(R.id.widget_layout_yellow));
+        tabhost.addTab(tabhost.newTabSpec("three").setIndicator("3").setContent(R.id.widget_layout_blue));
 
 
 
@@ -90,6 +91,35 @@ public class MainActivity extends AppCompatActivity {
 
         MyAdapter adapter = new MyAdapter(getSupportFragmentManager(), fragments);
         vpContent.setAdapter(adapter);
+
+        tabhost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+            @Override
+            public void onTabChanged(String s) {
+                if(tabhost!=null&&tabhost!=null){
+                    //写法1
+                    vpContent.setCurrentItem(tabhost.getCurrentTab());
+                }
+            }
+        });
+
+        vpContent.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(tabhost!=null){
+                    tabhost.setCurrentTab(position);
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
 
 
 
